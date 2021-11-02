@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.24.0",
     "framer-motion": "^5.0.1",
     "node-sass": "^6.0.1",
     "react": "^17.0.2",
@@ -19,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sass": "sass --watch ./src/style/index.scss"
+    "sass": "sass --watch ./src/style/index.scss:./src/style.css"
   },
   "eslintConfig": {
     "extends": [

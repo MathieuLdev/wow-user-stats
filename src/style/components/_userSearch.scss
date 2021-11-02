@@ -1,0 +1,44 @@
+#charachterForm {
+   position: relative;
+   display: flex;
+   flex-direction: column;
+   top: 20%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+
+select, input {
+   height: 2.8rem;
+   font-size: 1.4rem;
+   color: whitesmoke;
+   width: 300px;
+   margin: 0 auto 5px;
+   padding-left: 5px;
+   background: transparent;
+   backdrop-filter: blur(4px);
+   border: 2px solid whitesmoke;
+}
+
+option {
+   color: whitesmoke;
+   background: rgba(0, 0, 0, 0.9);
+}
+
+select, input[type="submit"] {
+   cursor: pointer;
+}
+
+input[type="submit"] {
+   position: relative;
+   transition: 0.2s ease-in;
+
+   &:hover {
+      color:rgba(0, 0, 0, 0.9);
+      background: whitesmoke;
+   }
+
+   &:focus {
+      border-radius: 30px;
+      letter-spacing: 2px;
+   }
+}

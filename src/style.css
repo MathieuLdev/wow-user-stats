@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Mukta&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Mukta", sans-serif;
+  border: none;
+  outline: none;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+body {
+  background: url(../assets/img/black-paint.jpg) center/cover fixed;
+  overflow: hidden;
+  font-size: 1.2rem;
+}
+
+#charachterForm {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+select, input {
+  margin-bottom: 5px;
+  height: 2rem;
+}
+
+#home {
+  position: absolute;
+}
+
+/*# sourceMappingURL=style.css.map */
