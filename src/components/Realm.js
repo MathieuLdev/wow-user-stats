@@ -4,7 +4,7 @@ const Realm = (props) => {
    const { realm } = props;
    
    return (
-      <option>{realm.slug}</option>
+      <option>{realm.name}</option>
    );
 };
 
