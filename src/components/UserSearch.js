@@ -17,12 +17,28 @@ const UserSearch = () => {
       axios
 			.get(`https://${tmpRegion}.api.blizzard.com/data/wow/realm/index?namespace=dynamic-${tmpRegion}&locale=fr_FR&access_token=${apiKey}`)
 			.then((res) => setRealm(res.data.realms));
+
       };
+
+      // useEffect(() => {
+
+      // }, [region])
 
    const handleSubmit = (e) => {
       e.preventDefault();
       console.log(name);
       console.log(characterRealm);
+      console.log(region);
+
+      if (region && realm && name) {
+         window.location.href = "/user-hall";
+      } else {
+         document.querySelector('.emptyInput').style.display = 'block';
+         document.querySelector('.emptyInput').style.animation = 'dongle 1s'
+         setTimeout(() => {
+            document.querySelector('.emptyInput').style.display = 'none';
+         }, 4000);
+      }
    }
    
    return (
@@ -36,7 +52,7 @@ const UserSearch = () => {
             <select id="realm" required onChange={(e) => setCharacterRealm(e.target.value)}>
                <option>Select a realm</option>
                {realm
-                  .sort((a, b) => {return b.name - a.name})
+                  .sort((a, b) => a.name.localeCompare(b.name))
                   .map((realm) => (
                      <Realm realm={realm} key={realm.id}/>))
                   }
@@ -48,6 +64,7 @@ const UserSearch = () => {
          }
          <input type="text" required placeholder="Character name" onChange={(e) => setName(e.target.value)}/>
          <input type="submit" value="Valider" />
+         <p className="emptyInput">Please fill out all the fields</p>
       </form>
    );
 };
