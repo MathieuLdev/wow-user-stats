@@ -1,22 +1,34 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import apiKey from '../api/api';
+import { getUserInfo } from '../reducers/user';
 
 const UserSearch = () => {
-   const [realm, setRealm] = useState([]);
+   const [realms, setRealms] = useState([]);
    const [region, setRegion] = useState();
    const [name, setName] = useState();
    const [characterRealm, setCharacterRealm] = useState();
+   const dispatch = useDispatch();
+   const history = useHistory();
+ 
 
    const toggleRegion = (e) => {
       const tmpRegion = e.target.value;
-
       setRegion(tmpRegion);
       axios
 			.get(`https://${tmpRegion}.api.blizzard.com/data/wow/realm/index?namespace=dynamic-${tmpRegion}&locale=fr_FR&access_token=${apiKey}`)
-			.then((res) => setRealm(res.data.realms));
-
+			.then((res) => setRealms(res.data.realms));
       };
+
+   const transformRealmInSlug = () => {
+
+      const selectBox = document.getElementById("realmsList");
+      const selectedValue = selectBox.options[selectBox.selectedIndex].id;
+      setCharacterRealm(selectedValue);
+   }
+
 
       // useEffect(() => {
 
@@ -25,12 +37,14 @@ const UserSearch = () => {
 
    const handleSubmit = (e) => {
       e.preventDefault();
-      console.log(characterRealm);
-      console.log(region);
-      console.log(name);
-
-      if ((region && region !== "select") && (realm && realm !== "select") && name) {
-         window.location.href = "/user-hall";
+      
+      if ((region && region !== "select") && (characterRealm && characterRealm !== "select") && name) {
+         dispatch(getUserInfo({
+            region,
+            characterRealm,
+            name,
+         }))
+         history.push("/user-hall")
       } else {
          document.querySelector('.emptyInput').style.display = 'block';
          document.querySelector('.emptyInput').style.animation = 'dongle 1s'
@@ -41,19 +55,19 @@ const UserSearch = () => {
    }
    
    return (
-      <form id='charachterForm' noValidate onSubmit={handleSubmit}>
+         <form id='charachterForm' noValidate onSubmit={handleSubmit}>
          <select id="region" required onChange={(e) => toggleRegion(e)}>
             <option value="select" defaultValue>Select a region</option>
             <option value="EU">EU</option>
             <option value="US">US</option>
          </select>
          { region ? 
-            <select id="realm" required onChange={(e) => setCharacterRealm(e.target.value)}>
+            <select id="realmsList" required onChange={transformRealmInSlug}>
                <option value="select">Select a realm</option>
-               {realm
+               {realms
                   .sort((a, b) => a.name.localeCompare(b.name))
-                  .map((realm) => (
-                     <option key={realm.id}>{realm.name}</option>))
+                  .map((realms) => (
+                     <option key={realms.id} id={realms.slug}>{realms.name}</option>))
                   }
             </select>
                   :
