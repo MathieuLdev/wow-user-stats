@@ -1,8 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import {isEmpty} from './Utils';
-import Realm from './Realm';
-import apiKey from '../api/api' 
+import apiKey from '../api/api';
 
 const UserSearch = () => {
    const [realm, setRealm] = useState([]);
@@ -24,13 +22,14 @@ const UserSearch = () => {
 
       // }, [region])
 
+
    const handleSubmit = (e) => {
       e.preventDefault();
-      console.log(name);
       console.log(characterRealm);
       console.log(region);
+      console.log(name);
 
-      if (region && realm && name) {
+      if ((region && region !== "select") && (realm && realm !== "select") && name) {
          window.location.href = "/user-hall";
       } else {
          document.querySelector('.emptyInput').style.display = 'block';
@@ -48,13 +47,13 @@ const UserSearch = () => {
             <option value="EU">EU</option>
             <option value="US">US</option>
          </select>
-         { !isEmpty(region) ? 
+         { region ? 
             <select id="realm" required onChange={(e) => setCharacterRealm(e.target.value)}>
-               <option>Select a realm</option>
+               <option value="select">Select a realm</option>
                {realm
                   .sort((a, b) => a.name.localeCompare(b.name))
                   .map((realm) => (
-                     <Realm realm={realm} key={realm.id}/>))
+                     <option key={realm.id}>{realm.name}</option>))
                   }
             </select>
                   :
