@@ -22,18 +22,14 @@ const UserSearch = () => {
 			.then((res) => setRealms(res.data.realms));
       };
 
-   const transformRealmInSlug = () => {
-
+   const transformRealm = () => {
       const selectBox = document.getElementById("realmsList");
       const selectedValue = selectBox.options[selectBox.selectedIndex].id;
       setCharacterRealm(selectedValue);
    }
 
-
       // useEffect(() => {
-
       // }, [region])
-
 
    const handleSubmit = (e) => {
       e.preventDefault();
@@ -58,11 +54,11 @@ const UserSearch = () => {
          <form id='charachterForm' noValidate onSubmit={handleSubmit}>
          <select id="region" required onChange={(e) => toggleRegion(e)}>
             <option value="select" defaultValue>Select a region</option>
-            <option value="EU">EU</option>
-            <option value="US">US</option>
+            <option value="eu">EU</option>
+            <option value="us">US</option>
          </select>
          { region ? 
-            <select id="realmsList" required onChange={transformRealmInSlug}>
+            <select id="realmsList" required onChange={transformRealm}>
                <option value="select">Select a realm</option>
                {realms
                   .sort((a, b) => a.name.localeCompare(b.name))
@@ -75,7 +71,7 @@ const UserSearch = () => {
                      <option>Select a realm</option>
                   </select>
          }
-         <input type="text" required placeholder="Character name" onChange={(e) => setName(e.target.value)}/>
+         <input type="text" required placeholder="Character name" onChange={(e) => setName(e.target.value.toLowerCase())}/>
          <input type="submit" value="Valider" />
          <p className="emptyInput">Please fill out all the fields</p>
       </form>
