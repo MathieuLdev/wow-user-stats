@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import apiKey from '../api/api';
+import { getMedia } from '../reducers/media';
 import { getUserInfo } from '../reducers/user';
 
 const UserSearch = () => {
@@ -12,6 +13,7 @@ const UserSearch = () => {
    const [characterRealm, setCharacterRealm] = useState();
    const dispatch = useDispatch();
    const history = useHistory();
+   const [media, setMedia] = useState();
  
 
    const toggleRegion = (e) => {
@@ -28,19 +30,31 @@ const UserSearch = () => {
       setCharacterRealm(selectedValue);
    }
 
-      // useEffect(() => {
-      // }, [region])
-
    const handleSubmit = (e) => {
       e.preventDefault();
       
       if ((region && region !== "select") && (characterRealm && characterRealm !== "select") && name) {
+         
          dispatch(getUserInfo({
             region,
             characterRealm,
             name,
-         }))
-         history.push("/user-hall")
+         }));
+
+         axios
+            .get(`https://${region}.api.blizzard.com/profile/wow/character/${characterRealm}/${name}/character-media?namespace=profile-${region}&locale=fr_FR&access_token=${apiKey}`)
+            .then((res) => setMedia(res.data))
+            .then(() => {
+               dispatch(getMedia({
+                  media: media
+               }));
+            })
+            .then(() => console.log(media))
+            .then(() => history.push("/user-hall"))
+         ;
+  
+
+
       } else {
          document.querySelector('.emptyInput').style.display = 'block';
          document.querySelector('.emptyInput').style.animation = 'dongle 1s'
