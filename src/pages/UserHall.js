@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import apiKey from '../api/api';
 import Media from '../components/Media';
+import Menu from '../components/Menu';
 import Navigation from '../components/Navigation';
 
 const UserHall = () => {
@@ -21,6 +22,7 @@ const UserHall = () => {
 
    return (
       <div id="userHall">
+         <Menu />
          <p id="userHallTitle">{user.name}</p>
          <div id="userHallDisplay">
             <Media />

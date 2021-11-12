@@ -29,7 +29,7 @@ select, input[type="submit"], a {
    cursor: pointer;
 }
 
-input[type="submit"], a {
+input[type="submit"], a, .fa-user, .fa-arrow-left {
    position: relative;
    transition: 0.2s ease-in;
 

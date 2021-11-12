@@ -20,7 +20,7 @@ const Navigation = (props) => {
             pathname: "/user-hall/statistics",
             state: {stats: stats}
             }}>
-            <li id="nav-item">Statistics</li>
+            <li id="nav-item">Stats</li>
          </NavLink>
       </ul>
    );

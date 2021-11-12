@@ -5,10 +5,13 @@ import Pvp from "./pages/Pvp";
 import Statistics from "./pages/Statistics";
 import Home from "./pages/Home";
 import UserHall from "./pages/UserHall";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faArrowLeft, faUser } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
 
   const location = useLocation();
+  library.add(faUser, faArrowLeft);
 
   return (
     <Switch location={location} key={location.pathname}>
