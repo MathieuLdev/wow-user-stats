@@ -30,9 +30,9 @@ const UserSearch = () => {
       setCharacterRealm(selectedValue);
    }
 
-   const handleSubmit = (e) => {
+   const handleSubmit = async (e) => {
       e.preventDefault();
-      
+
       if ((region && region !== "select") && (characterRealm && characterRealm !== "select") && name) {
          
          dispatch(getUserInfo({
@@ -41,19 +41,25 @@ const UserSearch = () => {
             name,
          }));
 
-         axios
+         setTimeout(() => {
+            axios
             .get(`https://${region}.api.blizzard.com/profile/wow/character/${characterRealm}/${name}/character-media?namespace=profile-${region}&locale=fr_FR&access_token=${apiKey}`)
             .then((res) => setMedia(res.data))
-            .then(() => {
-               dispatch(getMedia({
-                  media: media
-               }));
-            })
-            .then(() => console.log(media))
-            .then(() => history.push("/user-hall"))
-         ;
-  
+         }, 400);
+         
+         setTimeout(() => {
+            dispatch(getMedia({
+               media: media
+            }));
+         }, 600);
 
+         setTimeout(() => {
+            console.log(media);
+         }, 800);
+
+         setTimeout(() => {
+            history.push("/user-hall")
+         }, 1000);
 
       } else {
          document.querySelector('.emptyInput').style.display = 'block';

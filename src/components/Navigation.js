@@ -1,7 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Navigation = () => {
+const Navigation = (props) => {
+
+   const { stats } = props;
+
    return (
       <ul id="nav">
          <NavLink to="/user-hall/mythic">
@@ -13,7 +16,10 @@ const Navigation = () => {
          <NavLink to="/user-hall/pvp">
             <li id="nav-item">PVP</li>
          </NavLink>
-         <NavLink to="/user-hall/statistics">
+         <NavLink to={{
+            pathname: "/user-hall/statistics",
+            state: {stats: stats}
+            }}>
             <li id="nav-item">Statistics</li>
          </NavLink>
       </ul>
