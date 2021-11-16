@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import apiKey from '../api/api';
-import { getMedia } from '../reducers/media';
 import { getUserInfo } from '../reducers/user';
 
 const UserSearch = () => {
@@ -13,8 +12,6 @@ const UserSearch = () => {
    const [characterRealm, setCharacterRealm] = useState();
    const dispatch = useDispatch();
    const history = useHistory();
-   const [media, setMedia] = useState();
- 
 
    const toggleRegion = (e) => {
       const tmpRegion = e.target.value;
@@ -41,25 +38,8 @@ const UserSearch = () => {
             name,
          }));
 
-         setTimeout(() => {
-            axios
-            .get(`https://${region}.api.blizzard.com/profile/wow/character/${characterRealm}/${name}/character-media?namespace=profile-${region}&locale=fr_FR&access_token=${apiKey}`)
-            .then((res) => setMedia(res.data))
-         }, 400);
-         
-         setTimeout(() => {
-            dispatch(getMedia({
-               media: media
-            }));
-         }, 600);
+         history.push("/user-hall")
 
-         setTimeout(() => {
-            console.log(media);
-         }, 800);
-
-         setTimeout(() => {
-            history.push("/user-hall")
-         }, 1000);
 
       } else {
          document.querySelector('.emptyInput').style.display = 'block';
